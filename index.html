@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #0c0b0a; }
+  ::selection { background: #8aa9d6; color: #0c0b0a; }
+  a { text-decoration: none; color: inherit; }
+  .social-rail a { color: #ffffff; transition: color 0.25s ease; }
+  .social-rail a:hover { color: #ffffff; }
+  @media (max-width: 900px) { .social-rail { display: none !important; } }
+
+  .proj .pimg > div { transition: transform 0.8s cubic-bezier(.2,.7,.2,1); }
+  .proj:hover .pimg > div { transform: scale(1.05); }
+  .proj .pname { transition: color 0.3s ease; }
+  .proj:hover .pname { color: #8aa9d6; }
+  .jr .jr-thumb > div { transition: transform 0.8s cubic-bezier(.2,.7,.2,1); }
+  .jr:hover .jr-thumb > div { transform: scale(1.04); }
+  @keyframes heroKen {
+    0%   { transform: scale(1.05) translate(3%, 1.5%); }
+    50%  { transform: scale(1.22) translate(-4%, -2.5%); }
+    100% { transform: scale(1.05) translate(3%, 1.5%); }
+  }
+  .hero-ken { animation: heroKen 30s ease-in-out infinite; will-change: transform; }
+  @media (prefers-reduced-motion: reduce) { .hero-ken { animation: none; } }
+  @media (max-width: 860px) {
+    .process3 { grid-template-columns: 1fr !important; }
+    .process3 > div { border-left: none !important; border-top: 1px solid #26231e; padding-left: 0 !important; padding-top: 36px; }
+    .process3 > div:first-child { border-top: none; padding-top: 0; }
+    .studio-grid { grid-template-columns: 1fr !important; }
+    .jr-row { grid-template-columns: 1fr !important; }
+    .masthead-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
+<script defer src="image-slot.js"></script>
+<script>
+(function(){
+  function ready(){
+    var v=document.getElementById('ps-video');
+    if(!v){ return setTimeout(ready,200); }
+    v.muted=true; v.loop=true;
+    var kick=function(){ if(v.paused){ v.play().catch(function(){}); } };
+    v.addEventListener('pause', kick);
+    v.addEventListener('ended', function(){ v.currentTime=0; v.play().catch(function(){}); });
+    document.addEventListener('visibilitychange', function(){ if(!document.hidden) kick(); });
+    setInterval(kick, 1000);
+    kick();
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',ready); } else { ready(); }
+})();
+</script>
+</helmet>
+
+<div style="background:#0c0b0a; color:#ffffff; font-family:'Spectral',Georgia,serif; min-height:100vh; -webkit-font-smoothing:antialiased;">
+
+  <!-- ===== FLOATING HEADER ===== -->
+  <header style="position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:24px 40px; flex-wrap:wrap; padding:24px 4vw; background:#0c0b0a; border-bottom:1px solid #1f1c18;">
+    <a href="index.html" style="display:flex; align-items:center; gap:12px;">
+      <img src="assets/logo-white.png" alt="Gregory Colston Architect" style="height:60px; width:auto; display:block;">
+      <span style="font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:#ffffff;">New York · Chicago · Los Angeles · Nationwide</span>
+    </a>
+    <nav style="display:flex; gap:15px; align-items:center; font-family:'Space Mono',monospace; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#ffffff; flex-wrap:wrap;">
+      <a href="Houses.html" style="opacity:0.9;">Houses</a>
+        <a href="Lofts.html" style="opacity:0.9;">Lofts</a>
+        <a href="Apartments.html" style="opacity:0.9;">Apartments</a>
+        <a href="Commercial.html" style="opacity:0.9;">Commercial</a>
+        <a href="Process.html" style="opacity:0.9;">Process</a>
+      <a href="About.html" style="opacity:0.9;">Media</a>
+      <a href="Contact.html" style="opacity:0.9;">Contact</a>
+    </nav>
+  </header>
+
+
+  <!-- ===== FULL-BLEED OPENING IMAGE ===== -->
+  <section id="top" style="position:relative; width:100%; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#0c0b0a;">
+    <img class="hero-ken" src="assets/home-hero.jpg" alt="Interior — kitchen and living space" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+    <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(12,11,10,0.28) 0%, rgba(12,11,10,0) 30%); pointer-events:none;"></div>
+    <div style="position:absolute; left:0; right:0; bottom:0; height:46%; background:linear-gradient(to top, #0c0b0a 6%, rgba(12,11,10,0) 100%); pointer-events:none;"></div>
+  </section>
+
+  <!-- ===== SECTION RENDER (from Media) ===== -->
+  <section style="padding:0; max-width:none; margin:0;">
+    <div style="overflow:hidden; aspect-ratio:1793/818; background:#dfe7ee;"><image-slot id="home-render" src="assets/section-render.png" shape="rect" fit="cover" placeholder="Add drawing" style="width:100%; height:100%; display:block; transform:scale(1.14); transform-origin:center;"></image-slot></div>
+  </section>
+
+  <!-- ===== PALM SPRINGS FLYTHROUGH ===== -->
+  <section style="padding:0; max-width:none; margin:0;">
+    <div style="position:relative; width:100%; aspect-ratio:1500 / 560; overflow:hidden; background:#0a0a0a;">
+      <video id="ps-video" src="assets/palm-springs-flythrough.mp4" autoplay loop muted playsinline preload="auto" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top; display:block;"></video>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT / FOOTER ===== -->
+  <footer id="contact" style="padding:7vw 4vw 3vw; border-top:1px solid #1f1c18;">
+    <div style="max-width:1500px; margin:0 auto;">
+      <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#8aa9d6; margin-bottom:36px;">Contact — 005</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:40px; border-top:1px solid #26231e; padding-top:40px;">
+        <div>
+          <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#b2aea6; margin-bottom:14px;">Studio</div>
+          <div style="font-size:18px; line-height:1.6; color:#ffffff;">465 Grand Street #5B<br>New York, NY 10002</div>
+        </div>
+        <div>
+          <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#b2aea6; margin-bottom:14px;">Contact</div>
+          <div style="font-size:18px; line-height:1.6; color:#ffffff;"><a href="mailto:Greg@glcolston.com">Greg@glcolston.com</a><br><a href="tel:+12128046279">+1 212 804 6279</a></div>
+        </div>
+        <div>
+          <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#b2aea6; margin-bottom:14px;">Hours</div>
+          <div style="font-size:18px; line-height:1.6; color:#ffffff;">Monday — Friday<br>9:00am — 6:00pm EST</div>
+        </div>
+        <div>
+          <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#b2aea6; margin-bottom:14px;">Follow</div>
+          <div style="font-size:18px; line-height:1.6; color:#ffffff; display:flex; flex-direction:column; gap:2px;"><a href="https://www.instagram.com/gregorycolstonarchitect/">Instagram</a><a href="https://www.linkedin.com/in/greg-colston-091130">LinkedIn</a><a href="https://www.houzz.com/pro/glcolston/gregory-colston-architect">Houzz</a></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:64px; padding-top:22px; border-top:1px solid #26231e; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#b2aea6; flex-wrap:wrap; gap:10px;">
+        <span>Gregory Colston Architect</span>
+        <span>© 2026 — New York</span>
+      </div>
+    </div>
+    <div style="max-width:1500px; margin:36px auto 0; padding-top:28px; border-top:1px solid #1f1c18; display:flex; justify-content:center; gap:28px;">
+      <a href="https://www.instagram.com/gregorycolstonarchitect/" aria-label="Instagram" style="color:#b2aea6;"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.facebook.com/ColstonArchitect" aria-label="Facebook" style="color:#b2aea6;"><svg width="25" height="25" viewBox="0 0 24 24" fill="currentColor"><path d="M15.4 8.3h2V5.1c-.35-.05-1.53-.15-2.9-.15-2.87 0-4.83 1.8-4.83 5.1V13H6.9v3.4h2.77V24h3.4v-7.6h2.66l.42-3.4h-3.08v-2.6c0-.98.27-1.65 1.73-1.65z"></path></svg></a>
+      <a href="mailto:Greg@glcolston.com" aria-label="Email" style="color:#b2aea6;"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3.5 6.5 12 13l8.5-6.5"></path></svg></a>
+      <a href="https://www.linkedin.com/in/greg-colston-091130" aria-label="LinkedIn" style="color:#b2aea6;"><svg width="25" height="25" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21H18.6v-5.4c0-1.3-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21H10z"></path></svg></a>
+      <a href="https://www.houzz.com/pro/glcolston/gregory-colston-architect" aria-label="Houzz" style="color:#b2aea6;"><svg width="25" height="25" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 4 6.6v14.4h5.4v-6.2L12 13.3l2.6 1.5V21H20V6.6z"></path></svg></a>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1280, &quot;height&quot;: 900 }
+}">
+class Component extends DCLogic {
+  componentDidMount() { this._wireFilters(); this._wireSocial(); }
+  componentDidUpdate() { this._wireFilters(); this._wireSocial(); }
+
+  _wireSocial() {
+    document.querySelectorAll('.social-rail a[data-social]').forEach((a) => {
+      if (a._wired) return;
+      a._wired = true;
+      const go = () => {
+        const url = a.dataset.social;
+        if (url.indexOf('mailto:') === 0) { window.location.href = url; return; }
+        const w = window.open(url, '_blank', 'noopener,noreferrer');
+        if (!w) window.location.href = url;   // popup blocked -> navigate
+      };
+      a.addEventListener('click', go);
+      a.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    });
+  }
+
+  _wireFilters() {
+    const btns = Array.from(document.querySelectorAll('[data-filter]'));
+    const tiles = Array.from(document.querySelectorAll('[data-category]'));
+    if (!btns.length) return;
+    const apply = (f) => {
+      tiles.forEach((t) => {
+        t.style.display = (f === 'all' || t.dataset.category === f) ? '' : 'none';
+      });
+      btns.forEach((b) => {
+        const on = b.dataset.filter === f;
+        b.style.color = on ? '#8aa9d6' : '#ffffff';
+        b.style.borderBottomColor = on ? '#8aa9d6' : 'transparent';
+      });
+    };
+    btns.forEach((b) => {
+      if (b._wired) return;
+      b._wired = true;
+      b.addEventListener('click', () => apply(b.dataset.filter));
+    });
+    apply('all');
+  }
+}
+</script>
+</body>
+</html>

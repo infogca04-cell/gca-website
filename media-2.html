@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #0c0b0a; }
+  ::selection { background: #8aa9d6; color: #0c0b0a; }
+  a { text-decoration: none; }
+  image-slot:not([data-filled])::part(ring){ border:2px dashed #8aa9d6 !important; }
+  image-slot:not([data-filled])::part(frame){ background:rgba(138,169,214,0.10) !important; }
+  @media (max-width: 860px) { .pj-grid { grid-template-columns: 1fr 1fr !important; } .media-cols { grid-template-columns: 1fr !important; } .media-cols > div:last-child { min-height:320px !important; } }
+</style>
+<script defer src="image-slot.js"></script>
+<script>
+(function(){
+  function ready(){
+    var eds = document.querySelectorAll('[contenteditable="true"]');
+    if(!eds.length){ return setTimeout(ready,200); }
+    var KEY='mediaedit:'+location.pathname.split('/').pop();
+    var saved={};
+    try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
+    eds.forEach(function(el,i){
+      if(saved[i]!=null && saved[i]!==''){ el.textContent=saved[i]; }
+      // plain-text paste, no highlight/background
+      el.addEventListener('paste', function(e){
+        e.preventDefault();
+        var t=(e.clipboardData||window.clipboardData).getData('text/plain');
+        document.execCommand('insertText', false, t);
+      });
+      // persist
+      var save=function(){
+        var cur={};
+        try{ cur=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
+        cur[i]=el.textContent;
+        localStorage.setItem(KEY, JSON.stringify(cur));
+      };
+      el.addEventListener('input', save);
+      el.addEventListener('blur', save);
+    });
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',ready); } else { ready(); }
+})();
+</script>
+</helmet>
+
+<div style="background:#0c0b0a; color:#ffffff; font-family:'Spectral',Georgia,serif; min-height:100vh; -webkit-font-smoothing:antialiased;">
+
+  <header style="position:sticky; top:0; z-index:50; background:rgba(12,11,10,0.9); backdrop-filter:blur(10px); border-bottom:1px solid #1f1c18;">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:24px 40px; flex-wrap:wrap; padding:22px 4vw;">
+      <a href="index.html" style="display:flex; align-items:center; gap:12px; color:inherit;">
+        <img src="assets/logo-white.png" alt="Gregory Colston Architect" style="height:60px; width:auto; display:block;">
+        <span style="font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:#ffffff;">New York · Chicago · Los Angeles · Nationwide</span>
+      </a>
+      <nav style="display:flex; gap:15px; align-items:center; font-family:'Space Mono',monospace; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#b2aea6; flex-wrap:wrap;">
+        <a href="Houses.html" style="opacity:0.72; color:inherit;">Houses</a>
+        <a href="Lofts.html" style="opacity:0.72; color:inherit;">Lofts</a>
+        <a href="Apartments.html" style="opacity:0.72; color:inherit;">Apartments</a>
+        <a href="Commercial.html" style="opacity:0.72; color:inherit;">Commercial</a>
+        <a href="Process.html" style="opacity:0.72; color:inherit;">Process</a>
+        <a href="About.html" style="opacity:1; color:#ffffff; border-bottom:1px solid #ffffff; padding-bottom:3px;">Media</a>
+        <a href="Contact.html" style="opacity:0.72; color:inherit;">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== TITLE ===== -->
+  <section style="padding:6vw 4vw 5vw; max-width:1300px; margin:0 auto;">
+    <a href="About.html" style="display:inline-block; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8aa9d6; margin-bottom:36px;">← Media</a>
+    <div class="media-cols" style="display:grid; grid-template-columns:1fr 1fr; gap:5vw; align-items:stretch; margin-top:8px;">
+      <div style="display:flex; flex-direction:column; justify-content:center;">
+        <div contenteditable="true" spellcheck="false" style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#b2aea6; margin-bottom:24px; outline:none; cursor:text;">Featured In</div>
+        <h1 contenteditable="true" spellcheck="false" style="font-weight:400; font-size:clamp(40px,6vw,100px); line-height:1.0; letter-spacing:-0.02em; margin:0 0 28px; max-width:16ch; color:#ffffff; outline:none; cursor:text;">6sqft</h1>
+        <p contenteditable="true" spellcheck="false" style="font-size:15px; line-height:1.6; color:#ffffff; margin:0 0 26px; max-width:60ch; outline:none; cursor:text;">Add a short description of the feature or coverage here — the project, the story, and what the publication highlighted.</p>
+        <a href="https://www.6sqft.com/lower-east-side-four-bedroom-with-views-of-three-bridges-and-the-freedom-tower-asks-2-5m/" style="display:inline-block; font-family:'Space Mono',monospace; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#8aa9d6; border-bottom:1px solid #2f3d52; padding-bottom:4px;">Read the full article →</a>
+      </div>
+      <div style="overflow:hidden; min-height:420px; background:#1a1714;"><image-slot id="media-2-hero" shape="rect" fit="cover" placeholder="Add image" style="width:100%; height:100%; display:block;"></image-slot></div>
+    </div>
+  </section>
+
+  <footer style="padding:4vw; border-top:1px solid #1f1c18;">
+    <div style="max-width:1300px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#b2aea6; flex-wrap:wrap; gap:10px;">
+      <span>Gregory Colston Architect</span>
+      <span>465 Grand Street #5B, New York</span>
+      <span>© 2026 — New York</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{ &quot;$preview&quot;: { &quot;width&quot;: 1280, &quot;height&quot;: 900 } }"></script>
+</body>
+</html>
