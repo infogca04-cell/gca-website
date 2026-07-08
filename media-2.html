@@ -21,36 +21,6 @@
 </style>
 <script>window.__slotsLocked=true;</script>
 <script defer src="image-slot.js"></script>
-<script>
-(function(){
-  function ready(){
-    var eds = document.querySelectorAll('[contenteditable="true"]');
-    if(!eds.length){ return setTimeout(ready,200); }
-    var KEY='mediaedit:'+location.pathname.split('/').pop();
-    var saved={};
-    try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
-    eds.forEach(function(el,i){
-      if(saved[i]!=null && saved[i]!==''){ el.textContent=saved[i]; }
-      // plain-text paste, no highlight/background
-      el.addEventListener('paste', function(e){
-        e.preventDefault();
-        var t=(e.clipboardData||window.clipboardData).getData('text/plain');
-        document.execCommand('insertText', false, t);
-      });
-      // persist
-      var save=function(){
-        var cur={};
-        try{ cur=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
-        cur[i]=el.textContent;
-        localStorage.setItem(KEY, JSON.stringify(cur));
-      };
-      el.addEventListener('input', save);
-      el.addEventListener('blur', save);
-    });
-  }
-  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',ready); } else { ready(); }
-})();
-</script>
 </helmet>
 
 <div style="background:#0c0b0a; color:#ffffff; font-family:'Spectral',Georgia,serif; min-height:100vh; -webkit-font-smoothing:antialiased;">
@@ -80,7 +50,7 @@
       <div style="display:flex; flex-direction:column; justify-content:center;">
         <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#b2aea6; margin-bottom:24px; outline:none;">Featured In</div>
         <h1 style="font-weight:400; font-size:clamp(40px,6vw,100px); line-height:1.0; letter-spacing:-0.02em; margin:0 0 28px; max-width:16ch; color:#ffffff; outline:none;">6sqft</h1>
-        <p style="font-size:15px; line-height:1.6; color:#ffffff; margin:0 0 26px; max-width:60ch; outline:none;">Add a short description of the feature or coverage here — the project, the story, and what the publication highlighted.</p>
+        <p style="font-size:15px; line-height:1.6; color:#ffffff; margin:0 0 26px; max-width:60ch; outline:none;">"The story of this Chelsea apartment follows the trajectory of its vibrant neighborhood [...] The interior decor is a mix of sumptuous luxury and bold, art-inspired design, with highlights including Vertigo chandeliers from The Future Perfect, wall coverings by Holland &amp; Sherry, and two HearthCabinet Ventless Fireplaces."</p>
         <a href="https://www.6sqft.com/lower-east-side-four-bedroom-with-views-of-three-bridges-and-the-freedom-tower-asks-2-5m/" style="display:inline-block; font-family:'Space Mono',monospace; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#8aa9d6; border-bottom:1px solid #2f3d52; padding-bottom:4px;">Read the full article →</a>
       </div>
       <div style="overflow:hidden; min-height:420px; background:#1a1714;"><image-slot id="media-2-hero" shape="rect" fit="cover" placeholder="Add image" style="width:100%; height:100%; display:block;"></image-slot></div>
