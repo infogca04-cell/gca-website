@@ -287,8 +287,9 @@
       this._subFn = () => this._render();
       // Shadow-DOM listeners live with the shadow DOM — bound once here so
       // disconnect/reconnect (e.g. React remount) doesn't stack handlers.
-      this._empty.addEventListener('click', () => this._input.click());
+      this._empty.addEventListener('click', () => { if(window.__slotsLocked) return; this._input.click(); });
       root.addEventListener('click', (e) => {
+        if(window.__slotsLocked) return;
         const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
         if (act === 'replace') { this._exitReframe(true); this._input.click(); }
         if (act === 'clear') {
@@ -309,6 +310,7 @@
       // Gated on editable + fit=cover so share links and contain/fill slots
       // stay static.
       this.addEventListener('dblclick', (e) => {
+        if (window.__slotsLocked) return;
         if (!this.hasAttribute('data-editable') || !this._reframes()) return;
         e.preventDefault();
         if (this.hasAttribute('data-reframe')) this._exitReframe(true);
@@ -488,6 +490,7 @@
     }
 
     async _ingest(file) {
+      if (window.__slotsLocked) return;
       this._setError(null);
       if (!file || ACCEPT.indexOf(file.type) < 0) {
         this._setError('Drop a PNG, JPEG, WebP, or AVIF image.');
