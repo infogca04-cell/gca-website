@@ -219,7 +219,7 @@
     '.empty:hover .sub u{color:rgba(0,0,0,.75);text-decoration-color:currentColor}' +
     ':host([data-over]) .frame{outline:2px solid #c96442;outline-offset:-2px;' +
     '  background:rgba(201,100,66,.10)}' +
-    '.ring{position:absolute;inset:0;pointer-events:none;border:1.5px dashed rgba(0,0,0,.25);' +
+    '.ring{position:absolute;inset:0;pointer-events:none;border:0;' +
     '  transition:border-color .12s}' +
     ':host([data-over]) .ring{border-color:#c96442}' +
     ':host([data-filled]) .ring{display:none}' +
