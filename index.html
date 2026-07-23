@@ -41,7 +41,9 @@
   .hero-ken { animation: heroKen 30s ease-in-out infinite; will-change: transform; }
   @media (prefers-reduced-motion: reduce) { .hero-ken { animation: none; } }
   @media (max-width: 860px) {
-    #top { height: 60vh !important; min-height: 320px; }
+    #top { height: 56vh !important; min-height: 300px; }
+    .hero-ken { animation: none !important; transform: none !important; will-change: auto !important; }
+    .hero-slide { will-change: auto !important; }
     .process3 { grid-template-columns: 1fr !important; }
     .process3 > div { border-left: none !important; border-top: 1px solid #26231e; padding-left: 0 !important; padding-top: 36px; }
     .process3 > div:first-child { border-top: none; padding-top: 0; }
