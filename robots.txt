@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://colstonarchitect.com/sitemap.xml
+Sitemap: https://www.colstonarchitect.com/sitemap.xml
