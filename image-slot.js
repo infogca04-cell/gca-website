@@ -90,6 +90,11 @@
 
   function load() {
     if (loadP) return loadP;
+    // Sidecars only exist inside the authoring runtime. On the published
+    // site every slot carries a real src, so skip the guaranteed 404.
+    if (!(window.omelette && window.omelette.writeFile)) {
+      loadP = Promise.resolve(); loaded = true; return loadP;
+    }
     const grab = (f) => fetch(f).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     // Read the page sidecar plus the legacy shared file; page wins on overlap.
     loadP = Promise.all([grab(LEGACY_FILE), grab(STATE_FILE)])
